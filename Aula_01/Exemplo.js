@@ -1,4 +1,4 @@
-console.log("olá ");
+/*console.log("olá ");
 
 var animal = "Alefante";
 
@@ -9,7 +9,7 @@ console.log(typeof animal);
 animal = "cachorro ";
 console.log(animal);
 
-const valor = 10;
+
 
 //valor = 10;
 
@@ -30,5 +30,18 @@ console.log(5 === "5");//estritamente igual
 
 console.log(5 !== "5");
 
+console.log(valor);*/
 
+var linhas = parseInt(window.prompt("Valor:"));
+ 
+for (let i = 1; i<= linhas ; i++) {
+    let linha = ''
+    for (let j = 1; j<=i; j++) {
 
+       linha  += '*';
+
+    }
+    console.log(linha);
+   
+
+  }

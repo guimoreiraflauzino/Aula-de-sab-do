@@ -45,9 +45,3 @@ function formatarMoeda(valor) {
 document.getElementById("litros").addEventListener("input", atualizarValor);
 document.getElementById("combustivel").addEventListener("change", atualizarValor)
 
-document.getElementById("litros").addEventListener("keydown", function(event)){
-
-    if(event.key == "enter"){
-        event
-    }
-}

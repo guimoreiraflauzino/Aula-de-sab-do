@@ -38,9 +38,9 @@ function calcularValorAbastecimento(precoCombustivel, litros) {
     document.getElementById("resultado").textContent = `Valor a pagar: ${formatarMoeda(valorTotal)}`
 }
 
-function formatarMoeda(valor) {
-    return "R$" + valor.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
-}
+//function formatarMoeda(valor) {
+    //return "R$" + valor.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+//}
 
 document.getElementById("litros").addEventListener("input", atualizarValor);
 document.getElementById("combustivel").addEventListener("change", atualizarValor)

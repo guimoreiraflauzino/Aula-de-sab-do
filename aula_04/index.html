@@ -3,46 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela Dinâmica Interativa</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Gerenciador de Itens</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f7;
+            text-align: center;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        input {
+            width: 60%;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #0071e3;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.3s;
+        }
+        button:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
         table {
-            width: 50%;
+            width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
         th, td {
-            border: 1px solid black;
-            padding: 10px;
+            padding: 12px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #0071e3;
+            color: white;
         }
         .marked {
-            background-color: yellow;
+            background-color: #226f9c34;
         }
     </style>
 </head>
 <body>
-    <h2>Gerenciador de Itens</h2>
-    <input type="text" id="itemInput" placeholder="Digite um item">
-    <button onclick="addItem()">Adicionar</button>
-    
-    <h3>Itens Disponíveis</h3>
-    <select id="itemSelect"></select>
-    <button onclick="markItem()">Marcar</button>
-    <button onclick="unmarkItem()">Desmarcar</button>
-    <button onclick="removeItem()">Remover</button>
-    
-    <table id="itemTable">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Itens</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="container">
+        <h2>Gerenciador de Itens</h2>
+        <input type="text" id="itemInput" placeholder="Digite um item" onkeypress="handleKeyPress(event)">
+        <button onclick="addItem()">Adicionar</button>
+        
+        <h3>Itens Disponíveis</h3>
+        <select id="itemSelect"></select>
+        <button onclick="markItem()">Marcar</button>
+        <button onclick="unmarkItem()">Desmarcar</button>
+        <button onclick="removeItem()">Remover</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Itens</th>
+                </tr>
+            </thead>
+            <tbody id="itemTable"></tbody>
+        </table>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        let count = 0;
+        function addItem() {
+            let input = document.getElementById("itemInput");
+            let select = document.getElementById("itemSelect");
+            let table = document.getElementById("itemTable");
+            
+            if (input.value.trim() === "") return;
+            count++;
+            
+            let option = new Option(input.value, input.value);
+            select.add(option);
+            
+            let row = table.insertRow();
+            row.innerHTML = `<td>${count}</td><td>${input.value}</td>`;
+            
+            input.value = "";
+        }
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                addItem();
+            }
+        }
+        function markItem() {
+            let select = document.getElementById("itemSelect");
+            let rows = document.getElementById("itemTable").rows;
+            
+            for (let row of rows) {
+                if (row.cells[1].innerText === select.value) {
+                    row.classList.add("marked");
+                }
+            }
+        }
+        function unmarkItem() {
+            let select = document.getElementById("itemSelect");
+            let rows = document.getElementById("itemTable").rows;
+            
+            for (let row of rows) {
+                if (row.cells[1].innerText === select.value) {
+                    row.classList.remove("marked");
+                }
+            }
+        }
+        function removeItem() {
+            let select = document.getElementById("itemSelect");
+            let rows = document.getElementById("itemTable").rows;
+            
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].cells[1].innerText === select.value) {
+                    document.getElementById("itemTable").deleteRow(i);
+                    select.remove(select.selectedIndex);
+                    break;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
